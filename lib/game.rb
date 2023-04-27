@@ -61,29 +61,33 @@ class Game
       nb=0
       3.times do |i|                                             #check rows
         if choices[nb] == p && choices[nb+1] == p && choices[nb+2] == p
-          puts "#{all_players[p-1].name} gagne (ligne #{i+1})"
-          exit
+          puts "#{all_players[p-1].name} gagne (ligne #{i+1})".green
+          $winner = p
         end
         nb = nb+3
       end
       nb = 0
       3.times do |i|                                             #check columns
         if choices[nb] == p && choices[nb+3] == p && choices[nb+6] == p
-          puts "#{all_players[p-1].name} gagne (colonne #{i+1})"
-          exit
+          puts "#{all_players[p-1].name} gagne (colonne #{i+1})".green
+          $winner = p
         end
         nb = nb +1
       end
         if choices[0] == p && choices[4] == p && choices[8] == p       #check diagonal1
-          puts "#{all_players[p-1].name} gagne (diago 1)"
-          exit
+          puts "#{all_players[p-1].name} gagne (diago 1)".green
+          $winner = p
         end
         if choices[2] == p && choices[4] == p && choices[6] == p       #check diagonal2
-          puts "#{all_players[p-1].name} gagne (diago 2)"
-          exit
+          puts "#{all_players[p-1].name} gagne (diago 2)".green
+          $winner = p
         end
       p= p+1
     end
+  end
+
+  def bigdeco
+     puts " " + "/"*20
   end
 
   def player_phase(choices,turn,all_players)
@@ -93,42 +97,56 @@ class Game
       player = 1
     end
     player_name=player - 1
-    puts "  Tour de #{all_players[player_name].name}"
+    puts "  Tour de #{all_players[player_name].name}".light_blue
     while choices!=255
-      puts "changez une valeur ?"
+      puts "  quelle case remplir ?"
+      print " >"
       change_play=gets.chomp.to_i
       if choices[change_play].nil? && change_play <=8
         choices[change_play]=player
         puts " "
         break
       else
-        puts "non"
+        puts "  non valide".red
       end
     end
   end
 
-  def morpion(player1,player2)
+  def morpion
+    puts "nom joueur 1 :"
+    print ">"
+    player_tag = gets.chomp
+    player1 = Player.new(player_tag)
+    puts "nom joueur 2 :"
+    print ">"
+    player_tag = gets.chomp
+    player2 = Player.new(player_tag)
     all_players =[]
     all_players << player1
     all_players << player2
     choices = [nil,nil,nil,nil,nil,nil,nil,nil,nil]
     turn =1
-    10.times do
+    $winner =0
+    while $winner == 0 do
       nb=0
-      puts " " + "/"*20
+      bigdeco
       puts "        Tour #{turn}"
-      puts " " + "/"*20
+      bigdeco
       3.times do
         boardcase(choices,nb)
         nb = nb +3
       end
       deco
       win_condition(choices,all_players)
+      if $winner !=0
+        break
+      end
       if choices.any? { |a| a.nil?}
         player_phase(choices,turn,all_players)
         turn = turn +1
       else 
-        puts "Egalitée"
+        puts "Egalitée".blue
+        $winner = 3
       end
     end
   end
