@@ -104,7 +104,10 @@ class Game
       change_play=gets.chomp
       cases = ["A1","A2","A3","B1","B2","B3","C1","C2","C3"]
       change_play = cases.index(change_play)
-      if choices[change_play].nil? && change_play <=8
+      if change_play.nil?
+        change_play= 9
+      end
+      if choices[change_play].nil? && change_play<=8
         choices[change_play]=player
         puts " "
         break
