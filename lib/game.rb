@@ -101,7 +101,9 @@ class Game
     while choices!=255
       puts "  quelle case remplir ?"
       print " >"
-      change_play=gets.chomp.to_i
+      change_play=gets.chomp
+      cases = ["A1","A2","A3","B1","B2","B3","C1","C2","C3"]
+      change_play = cases.index(change_play)
       if choices[change_play].nil? && change_play <=8
         choices[change_play]=player
         puts " "
