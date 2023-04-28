@@ -1,7 +1,7 @@
 #app.rb
 require 'colorize'
 require 'bundler'
-Bundler.require
+#Bundler.require
 
 require_relative 'lib/game'
 require_relative 'lib/player'
