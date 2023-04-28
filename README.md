@@ -6,6 +6,7 @@ the aim of the game is to make a line of 3 of your paterns
 
 #Input:
 You have to use A1/B2 ect.... to indicate were you want to place your patern or it won't work
+
 +----+----+----+
 | A1 | A2 | A3 |
 +----+----+----+
